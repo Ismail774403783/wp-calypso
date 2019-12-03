@@ -12,6 +12,7 @@ import { useLocalize } from '../../lib/localize';
 import { useDispatch, useSelect } from '../../lib/registry';
 import { useCheckoutHandlers, useCheckoutRedirects, useLineItems } from '../../public-api';
 import { PaymentMethodLogos } from '../styled-components/payment-method-logos';
+import { createCartFromLineItems } from './transactions-endpoint';
 
 export function createPayPalMethod( {
 	registerStore,
@@ -199,36 +200,4 @@ function PaypalLogo( { className } ) {
 			</defs>
 		</svg>
 	);
-}
-
-// TODO: this is duplicated in stripe-credit-card-fields also
-function createCartFromLineItems( {
-	siteId,
-	couponId,
-	items,
-	country,
-	postalCode,
-	subdivisionCode,
-} ) {
-	const currency = items.reduce( ( firstValue, item ) => firstValue || item.amount.currency, null );
-	return {
-		blog_id: siteId,
-		coupon: couponId || '',
-		currency: currency || '',
-		temporary: false,
-		extra: [],
-		products: items.map( item => ( {
-			product_id: item.id,
-			meta: '', // TODO: get this for domains, etc
-			currency: item.amount.currency,
-			volume: 1,
-		} ) ),
-		tax: {
-			location: {
-				country_code: country,
-				postal_code: postalCode,
-				subdivision_code: subdivisionCode,
-			},
-		},
-	};
 }
