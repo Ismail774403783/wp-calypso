@@ -75,6 +75,7 @@ const stripeMethod = createStripeMethod( {
 } );
 
 const paypalMethod = createPayPalMethod( {
+	getSiteId: () => select( 'wpcom' )?.getSiteId?.(),
 	registerStore: registerStore,
 	makePayPalExpressRequest: mockPayPalExpressRequest,
 } );
