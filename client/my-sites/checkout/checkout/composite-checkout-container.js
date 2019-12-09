@@ -8,7 +8,7 @@ import {
 	createStripeMethod,
 	createApplePayMethod,
 } from '@automattic/composite-checkout';
-import { WPCheckoutWrapper, mockPayPalExpressRequest } from '@automattic/composite-checkout-wpcom';
+import { WPCheckoutWrapper } from '@automattic/composite-checkout-wpcom';
 import { useTranslate } from 'i18n-calypso';
 import debugFactory from 'debug';
 
